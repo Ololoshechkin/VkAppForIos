@@ -13,10 +13,17 @@
 		DD26B8521E4FCB6A000893BE /* AppUsingSwiftyVk.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD26B8501E4FCB6A000893BE /* AppUsingSwiftyVk.xcdatamodeld */; };
 		DD26B8541E4FCB6A000893BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD26B8531E4FCB6A000893BE /* Assets.xcassets */; };
 		DD26B8571E4FCB6A000893BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD26B8551E4FCB6A000893BE /* LaunchScreen.storyboard */; };
+		DD26B8601E4FCFE0000893BE /* VkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26B85F1E4FCFE0000893BE /* VkDelegate.swift */; };
+		DD4321A61E54F747008BDF89 /* FriendsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4321A51E54F747008BDF89 /* FriendsPageViewController.swift */; };
+		DD786CDA1E58982D0078E986 /* Vkontakte.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD786CD91E58982D0078E986 /* Vkontakte.swift */; };
+		DDE78E2D6F39C58094975217 /* Pods_AppUsingSwiftyVk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68D69CCCCE9748091E5EE94 /* Pods_AppUsingSwiftyVk.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD26B8461E4FCB6A000893BE /* AppUsingSwiftyVk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppUsingSwiftyVk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FEA765A1AD0EC7A9A8B289E /* Pods-AppUsingSwiftyVk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppUsingSwiftyVk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppUsingSwiftyVk/Pods-AppUsingSwiftyVk.debug.xcconfig"; sourceTree = "<group>"; };
+		A2BB7B9C9CE6E2CA849D5450 /* Pods-AppUsingSwiftyVk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppUsingSwiftyVk.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppUsingSwiftyVk/Pods-AppUsingSwiftyVk.release.xcconfig"; sourceTree = "<group>"; };
+		A68D69CCCCE9748091E5EE94 /* Pods_AppUsingSwiftyVk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppUsingSwiftyVk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD26B8461E4FCB6A000893BE /* MyVkAppForIos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVkAppForIos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD26B8491E4FCB6A000893BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD26B84B1E4FCB6A000893BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DD26B84E1E4FCB6A000893BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -24,6 +31,9 @@
 		DD26B8531E4FCB6A000893BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD26B8561E4FCB6A000893BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD26B8581E4FCB6A000893BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD26B85F1E4FCFE0000893BE /* VkDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VkDelegate.swift; sourceTree = "<group>"; };
+		DD4321A51E54F747008BDF89 /* FriendsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsPageViewController.swift; sourceTree = "<group>"; };
+		DD786CD91E58982D0078E986 /* Vkontakte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vkontakte.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,24 +41,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE78E2D6F39C58094975217 /* Pods_AppUsingSwiftyVk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E3779525701931741A5DACE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A68D69CCCCE9748091E5EE94 /* Pods_AppUsingSwiftyVk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DD26B83D1E4FCB6A000893BE = {
 			isa = PBXGroup;
 			children = (
 				DD26B8481E4FCB6A000893BE /* AppUsingSwiftyVk */,
 				DD26B8471E4FCB6A000893BE /* Products */,
+				EA8594C284AE38ED906849A0 /* Pods */,
+				3E3779525701931741A5DACE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		DD26B8471E4FCB6A000893BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DD26B8461E4FCB6A000893BE /* AppUsingSwiftyVk.app */,
+				DD26B8461E4FCB6A000893BE /* MyVkAppForIos.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,28 +84,43 @@
 				DD26B8551E4FCB6A000893BE /* LaunchScreen.storyboard */,
 				DD26B8581E4FCB6A000893BE /* Info.plist */,
 				DD26B8501E4FCB6A000893BE /* AppUsingSwiftyVk.xcdatamodeld */,
+				DD26B85F1E4FCFE0000893BE /* VkDelegate.swift */,
+				DD4321A51E54F747008BDF89 /* FriendsPageViewController.swift */,
+				DD786CD91E58982D0078E986 /* Vkontakte.swift */,
 			);
 			path = AppUsingSwiftyVk;
+			sourceTree = "<group>";
+		};
+		EA8594C284AE38ED906849A0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4FEA765A1AD0EC7A9A8B289E /* Pods-AppUsingSwiftyVk.debug.xcconfig */,
+				A2BB7B9C9CE6E2CA849D5450 /* Pods-AppUsingSwiftyVk.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DD26B8451E4FCB6A000893BE /* AppUsingSwiftyVk */ = {
+		DD26B8451E4FCB6A000893BE /* MyVkAppForIos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DD26B85B1E4FCB6A000893BE /* Build configuration list for PBXNativeTarget "AppUsingSwiftyVk" */;
+			buildConfigurationList = DD26B85B1E4FCB6A000893BE /* Build configuration list for PBXNativeTarget "MyVkAppForIos" */;
 			buildPhases = (
+				DADD01AADBF8094E61FA0F7E /* [CP] Check Pods Manifest.lock */,
 				DD26B8421E4FCB6A000893BE /* Sources */,
 				DD26B8431E4FCB6A000893BE /* Frameworks */,
 				DD26B8441E4FCB6A000893BE /* Resources */,
+				BE9073931AD3DAECCC78E88E /* [CP] Embed Pods Frameworks */,
+				2C79E030787265559F1E7D4E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = AppUsingSwiftyVk;
+			name = MyVkAppForIos;
 			productName = AppUsingSwiftyVk;
-			productReference = DD26B8461E4FCB6A000893BE /* AppUsingSwiftyVk.app */;
+			productReference = DD26B8461E4FCB6A000893BE /* MyVkAppForIos.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -104,7 +140,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DD26B8411E4FCB6A000893BE /* Build configuration list for PBXProject "AppUsingSwiftyVk" */;
+			buildConfigurationList = DD26B8411E4FCB6A000893BE /* Build configuration list for PBXProject "MyVkAppForIos" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -117,7 +153,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DD26B8451E4FCB6A000893BE /* AppUsingSwiftyVk */,
+				DD26B8451E4FCB6A000893BE /* MyVkAppForIos */,
 			);
 		};
 /* End PBXProject section */
@@ -135,6 +171,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2C79E030787265559F1E7D4E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppUsingSwiftyVk/Pods-AppUsingSwiftyVk-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE9073931AD3DAECCC78E88E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppUsingSwiftyVk/Pods-AppUsingSwiftyVk-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DADD01AADBF8094E61FA0F7E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DD26B8421E4FCB6A000893BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -142,7 +226,10 @@
 			files = (
 				DD26B84C1E4FCB6A000893BE /* ViewController.swift in Sources */,
 				DD26B8521E4FCB6A000893BE /* AppUsingSwiftyVk.xcdatamodeld in Sources */,
+				DD4321A61E54F747008BDF89 /* FriendsPageViewController.swift in Sources */,
 				DD26B84A1E4FCB6A000893BE /* AppDelegate.swift in Sources */,
+				DD26B8601E4FCFE0000893BE /* VkDelegate.swift in Sources */,
+				DD786CDA1E58982D0078E986 /* Vkontakte.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +348,7 @@
 		};
 		DD26B85C1E4FCB6A000893BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FEA765A1AD0EC7A9A8B289E /* Pods-AppUsingSwiftyVk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2B94L377PG;
@@ -274,6 +362,7 @@
 		};
 		DD26B85D1E4FCB6A000893BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2BB7B9C9CE6E2CA849D5450 /* Pods-AppUsingSwiftyVk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2B94L377PG;
@@ -288,7 +377,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DD26B8411E4FCB6A000893BE /* Build configuration list for PBXProject "AppUsingSwiftyVk" */ = {
+		DD26B8411E4FCB6A000893BE /* Build configuration list for PBXProject "MyVkAppForIos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD26B8591E4FCB6A000893BE /* Debug */,
@@ -297,13 +386,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DD26B85B1E4FCB6A000893BE /* Build configuration list for PBXNativeTarget "AppUsingSwiftyVk" */ = {
+		DD26B85B1E4FCB6A000893BE /* Build configuration list for PBXNativeTarget "MyVkAppForIos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD26B85C1E4FCB6A000893BE /* Debug */,
 				DD26B85D1E4FCB6A000893BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

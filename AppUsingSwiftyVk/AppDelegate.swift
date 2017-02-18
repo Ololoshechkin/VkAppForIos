@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import SwiftyVK
+
+var vkDelegateReference : VKDelegate?
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        vkDelegateReference = VkDelegate()
         return true
     }
 
@@ -87,6 +90,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let app = options[.sourceApplication] as? String
+        VK.process(url: url, sourceApplication: app)
+        return true
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        VK.process(url: url, sourceApplication: sourceApplication)
+        return true
     }
 
 }
