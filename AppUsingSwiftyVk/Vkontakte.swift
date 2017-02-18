@@ -11,6 +11,11 @@ import SwiftyVK
 
 class Vkontakte {
     
+    class func getPhoto(byUrl photoUrl: String) -> UIImage {
+        let imageUrl = NSURL.init(string: photoUrl)
+        let imageData = NSData.init(contentsOf: imageUrl as! URL)
+        return UIImage.init(data: imageData as! Data)!
+    }
     
     class func logIn() {
         VK.logIn()
@@ -37,8 +42,7 @@ class Vkontakte {
                 print("----------ERROR GETTING NAME----------\n\(error)")
                 gotAnswer = true},
             onProgress: {(x: Int64, y: Int64) -> () in
-                print("progress (\(x), \(y))")
-                gotAnswer = true})
+                print("progress (\(x), \(y))")})
         while (!gotAnswer) {
             continue
         }
@@ -67,24 +71,15 @@ class Vkontakte {
     }
     
     
-    class func getAccountPhotoUrl() -> String {
-        return ""
-    }
-    
-    
     class func getPhoto(byId photoId: String) -> UIImage? {
         var photo: UIImage?
         var gotAnswer = false
         VK.API.Photos.getById([VK.Arg.photos: photoId]).send(
             onSuccess: {(response: JSON) -> () in
                 for responceDict in response.arrayValue {
-                    print(responceDict)
                     let width = 604
                     let photoKeyName = "photo_\(width)"
-                    let photoPath = responceDict[photoKeyName]
-                    let imageUrl = NSURL.init(string: photoPath.stringValue)
-                    let imageData = NSData.init(contentsOf: imageUrl as! URL)
-                    photo = UIImage.init(data: imageData as! Data)
+                    photo = getPhoto(byId: responceDict[photoKeyName].stringValue)
                     gotAnswer = true
                 }
             },
@@ -95,6 +90,56 @@ class Vkontakte {
             continue
         }
         return photo
+    }
+    
+    class func getFriendCount() -> Int {
+        return getFriendNames().count
+    }
+    
+    class func getFriendsWithPhotos(from firstFriendPos: Int, to lastFriendPos: Int) -> [(name: String, photo: UIImage)] {
+        var friends = [(name: String, photo: UIImage)]()
+        var gotAnswer = false
+        VK.API.Friends.get([VK.Arg.fields: "domain,photo_50"]).send(
+            onSuccess: {(responce) in
+                let items: [JSON] = responce.dictionary!["items"]!.array!
+                for item in items {
+                    let friendParams = item.dictionaryValue
+                    let friendName = "\(friendParams["first_name"] ?? "") \(friendParams["last_name"] ?? "")"
+                    let friendPhoto = getPhoto(byUrl: (friendParams["photo_50"]?.stringValue)!)
+                    friends.append((name: friendName, photo: friendPhoto))
+                }
+                gotAnswer = true},
+            onError: {(error: Error) -> () in print("__________Friends.get.error__________")
+                gotAnswer = true},
+            onProgress: {(x: Int64, y: Int64) -> () in
+                print("progress (x : \(x), y: \(y))")})
+        while (!gotAnswer) {
+            continue
+        }
+        return friends
+    }
+    
+    class func getMainPhoto() -> UIImage {
+        var photo: UIImage?
+        var gotAnswer = false
+        VK.API.Photos.get([VK.Arg.albumId: "profile"]).send(
+            onSuccess: {(response: JSON) -> () in
+                let mainPhotos = response.dictionaryValue["items"]?.arrayValue
+                let lastPhoto = mainPhotos?.last?.dictionaryValue
+                let width: String = (lastPhoto?["width"]?.stringValue)!
+                let mainPhotoPath = lastPhoto?["photo_\(width)"]
+                let imageUrl = NSURL.init(string: (mainPhotoPath?.stringValue)!)
+                let imageData = NSData.init(contentsOf: imageUrl as! URL)
+                photo = UIImage.init(data: imageData as! Data)
+                gotAnswer = true
+            },
+            onError: {(error: Error) -> () in
+                print("VK-ERROR: photos.get fail")
+                gotAnswer = true})
+        while (!gotAnswer) {
+            continue
+        }
+        return photo!
     }
     
     

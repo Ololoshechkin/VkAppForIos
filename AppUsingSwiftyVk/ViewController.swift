@@ -28,9 +28,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        VK.logIn()
+        Vkontakte.logIn()
         usernameLabel.text = Vkontakte.getAccountName()
-        image.image = Vkontakte.getPhoto(byId: "28642046_456239158")
+        image.image = Vkontakte.getMainPhoto()
+        image.sizeToFit()
     }
 
     override func didReceiveMemoryWarning() {
