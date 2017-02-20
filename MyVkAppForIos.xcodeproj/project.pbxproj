@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD2367451E5B16B800E167C2 /* FriendPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2367441E5B16B800E167C2 /* FriendPageViewController.swift */; };
 		DD26B84A1E4FCB6A000893BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26B8491E4FCB6A000893BE /* AppDelegate.swift */; };
 		DD26B84C1E4FCB6A000893BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26B84B1E4FCB6A000893BE /* ViewController.swift */; };
 		DD26B84F1E4FCB6A000893BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD26B84D1E4FCB6A000893BE /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 		4FEA765A1AD0EC7A9A8B289E /* Pods-AppUsingSwiftyVk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppUsingSwiftyVk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppUsingSwiftyVk/Pods-AppUsingSwiftyVk.debug.xcconfig"; sourceTree = "<group>"; };
 		A2BB7B9C9CE6E2CA849D5450 /* Pods-AppUsingSwiftyVk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppUsingSwiftyVk.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppUsingSwiftyVk/Pods-AppUsingSwiftyVk.release.xcconfig"; sourceTree = "<group>"; };
 		A68D69CCCCE9748091E5EE94 /* Pods_AppUsingSwiftyVk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppUsingSwiftyVk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD2367441E5B16B800E167C2 /* FriendPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendPageViewController.swift; sourceTree = "<group>"; };
 		DD26B8461E4FCB6A000893BE /* MyVkAppForIos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVkAppForIos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD26B8491E4FCB6A000893BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD26B84B1E4FCB6A000893BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				DD26B85F1E4FCFE0000893BE /* VkDelegate.swift */,
 				DD4321A51E54F747008BDF89 /* FriendsPageViewController.swift */,
 				DD786CD91E58982D0078E986 /* Vkontakte.swift */,
+				DD2367441E5B16B800E167C2 /* FriendPageViewController.swift */,
 			);
 			path = AppUsingSwiftyVk;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD2367451E5B16B800E167C2 /* FriendPageViewController.swift in Sources */,
 				DD26B84C1E4FCB6A000893BE /* ViewController.swift in Sources */,
 				DD26B8521E4FCB6A000893BE /* AppUsingSwiftyVk.xcdatamodeld in Sources */,
 				DD4321A61E54F747008BDF89 /* FriendsPageViewController.swift in Sources */,

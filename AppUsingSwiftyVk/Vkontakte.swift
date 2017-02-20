@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Darwin
 import SwiftyVK
 
 class Vkontakte {
@@ -23,30 +24,39 @@ class Vkontakte {
     
     
     class func getName(byId userId: String) -> String? {
-        var name: String?
+        var username: String?
         var gotAnswer = false
         VK.API.Users.get([VK.Arg.userId: userId]).send(
-            onSuccess: {(responce: JSON) -> () in
-                print("responce:\n\(responce)")
-                if responce == nil {
-                    print("NILL, fuck u are?!")
-                } else {
-                for obj in responce.array! {
-                    let dict = obj.dictionary
-                    print("responce:\n\(dict)")
-                    name = "\(dict?["first_name"]?.stringValue) \(dict?["last_name"]?.stringValue)"
-                }
+            onSuccess: {(response: JSON) -> () in
+                for obj in response.array! {
+                    username = (obj.dictionaryValue["first_name"]?.stringValue)! + " " + (obj.dictionaryValue["last_name"]?.stringValue)!
                 }
                 gotAnswer = true},
-            onError: { (error: Error) in
-                print("----------ERROR GETTING NAME----------\n\(error)")
-                gotAnswer = true},
-            onProgress: {(x: Int64, y: Int64) -> () in
-                print("progress (\(x), \(y))")})
+            onError: {(error: Error) -> () in
+                print("VK-ERROR: user.get fail")
+                gotAnswer = true})
         while (!gotAnswer) {
             continue
         }
-        return name
+        return username!
+    }
+    
+    class func isOnline(id userId: String) -> Bool {
+        var online = false
+        var gotAnswer = false
+        VK.API.Users.get([VK.Arg.userId: userId, VK.Arg.fields: "online"]).send(
+            onSuccess: {(response: JSON) -> () in
+                for obj in response.array! {
+                    online = ((obj.dictionaryValue["online"]?.stringValue)! == "1")
+                }
+                gotAnswer = true},
+            onError: {(error: Error) -> () in
+                print("VK-ERROR: user.get fail")
+                gotAnswer = true})
+        while (!gotAnswer) {
+            continue
+        }
+        return online
     }
     
     
@@ -92,21 +102,28 @@ class Vkontakte {
         return photo
     }
     
-    class func getFriendCount() -> Int {
-        return getFriendNames().count
+    class func getFriendCount(for userId: String = "main") -> Int {
+        return getFriendNames(for: userId).count
     }
     
-    class func getFriendsWithPhotos(from firstFriendPos: Int, to lastFriendPos: Int) -> [(name: String, photo: UIImage)] {
-        var friends = [(name: String, photo: UIImage)]()
+    class func getFriendsWithPhotos(from firstFriendPos: Int, to lastFriendPos: Int, for userId: String = "main")
+        -> [(id: String, name: String, photo: UIImage)] {
+        var friends = [(id: String, name: String, photo: UIImage)]()
         var gotAnswer = false
-        VK.API.Friends.get([VK.Arg.fields: "domain,photo_50"]).send(
+        var parameters = [VK.Arg.fields: "domain,photo_50", VK.Arg.offset: "\(firstFriendPos)",
+                VK.Arg.count: "\(lastFriendPos - firstFriendPos + 1)"]
+        if userId != "main" {
+            parameters[VK.Arg.userId] = userId
+        }
+        VK.API.Friends.get(parameters).send(
             onSuccess: {(responce) in
                 let items: [JSON] = responce.dictionary!["items"]!.array!
                 for item in items {
                     let friendParams = item.dictionaryValue
+                    let friendId = friendParams["id"]?.stringValue
                     let friendName = "\(friendParams["first_name"] ?? "") \(friendParams["last_name"] ?? "")"
                     let friendPhoto = getPhoto(byUrl: (friendParams["photo_50"]?.stringValue)!)
-                    friends.append((name: friendName, photo: friendPhoto))
+                    friends.append((id: friendId!, name: friendName, photo: friendPhoto))
                 }
                 gotAnswer = true},
             onError: {(error: Error) -> () in print("__________Friends.get.error__________")
@@ -119,22 +136,19 @@ class Vkontakte {
         return friends
     }
     
-    class func getMainPhoto() -> UIImage {
+    private class func getUserPhoto(for userId: String = "main") -> UIImage {
         var photo: UIImage?
         var gotAnswer = false
-        VK.API.Photos.get([VK.Arg.albumId: "profile"]).send(
+        let parameters = (userId == "main" ? [VK.Arg.fields: "photo_max_orig"] : [VK.Arg.userId: userId, VK.Arg.fields: "photo_max_orig"])
+        VK.API.Users.get(parameters).send(
             onSuccess: {(response: JSON) -> () in
-                let mainPhotos = response.dictionaryValue["items"]?.arrayValue
-                let lastPhoto = mainPhotos?.last?.dictionaryValue
-                let width: String = (lastPhoto?["width"]?.stringValue)!
-                let mainPhotoPath = lastPhoto?["photo_\(width)"]
-                let imageUrl = NSURL.init(string: (mainPhotoPath?.stringValue)!)
-                let imageData = NSData.init(contentsOf: imageUrl as! URL)
-                photo = UIImage.init(data: imageData as! Data)
-                gotAnswer = true
-            },
+                for obj in response.array! {
+                    let mainPhotoPath: String = (obj.dictionaryValue["photo_max_orig"]?.stringValue)!
+                    photo = getPhoto(byUrl: mainPhotoPath)
+                }
+                gotAnswer = true},
             onError: {(error: Error) -> () in
-                print("VK-ERROR: photos.get fail")
+                print("VK-ERROR: users.get fail")
                 gotAnswer = true})
         while (!gotAnswer) {
             continue
@@ -142,11 +156,39 @@ class Vkontakte {
         return photo!
     }
     
+    public class func getMainPhoto(for userId: String = "main") -> UIImage {
+        var photo: UIImage?
+        var gotAnswer = false
+        let parameters = (userId == "main" ? [VK.Arg.albumId: "profile"] : [VK.Arg.userId: userId, VK.Arg.albumId: "profile"])
+        VK.API.Photos.get(parameters).send(
+            onSuccess: {(response: JSON) -> () in
+                let mainPhotos = response.dictionaryValue["items"]?.arrayValue
+                let lastPhoto = mainPhotos?.last?.dictionaryValue
+                let width: String = (lastPhoto?["width"]?.stringValue) ?? "604"
+                let mainPhotoPath: String = (lastPhoto?["photo_\(width)"]?.stringValue ?? "none")!
+                if mainPhotoPath != "none" {
+                    photo = getPhoto(byUrl: mainPhotoPath)
+                }
+                gotAnswer = true
+        },
+            onError: {(error: Error) -> () in
+                print("VK-ERROR: photos.get fail")
+                gotAnswer = true})
+        while !gotAnswer {
+            continue
+        }
+        if photo == nil {
+            photo = getUserPhoto(for: userId)
+        }
+        return photo!
+    }
     
-    class func getFriendNames() -> [String] {
+    
+    class func getFriendNames(for userId: String = "main") -> [String] {
         var friends = [String]()
         var gotAnswer = false
-        VK.API.Friends.get([VK.Arg.fields: "domain"]).send(
+        let parameters = (userId == "main" ? [VK.Arg.fields: "domain"] : [VK.Arg.userId: userId, VK.Arg.fields: "domain"])
+        VK.API.Friends.get(parameters).send(
             onSuccess: {(responce) in
                 let items: [JSON] = responce.dictionary!["items"]!.array!
                 for item in items {
