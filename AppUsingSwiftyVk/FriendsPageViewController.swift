@@ -11,18 +11,22 @@ import UIKit
 import SwiftyVK
 
 
-public class FriendsPageViewController: UITableViewController {
+public class FriendsPageViewController: UITableViewController, UISearchBarDelegate {
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     public var lastUserId: String = "main"
-    var friendsArray = [(id: String, name: String, photo: UIImage)?]()
-    var friendCount = 0
-    private let bucketSize = 20
-    private let halfBucketSize = 10
+    var friendsArray = [(id: String, name: String, photo: UIImage?)]()
+    var searchedFriends = [(id: String, name: String, photo: UIImage?)]()
+    var searchIsActive = false
+    var searchBarIsEmpty = true
+    private let bucketSize = 6
+    private let halfBucketSize = 3
     
     private func uploadBucket(from bucketBegin: Int, to bucketEnd: Int) {
-        let bucket = Vkontakte.getFriendsWithPhotos(from: bucketBegin, to: bucketEnd, for: lastUserId)
+        let bucket = Vkontakte.getFriendPhotos(from: bucketBegin, to: bucketEnd, for: lastUserId)
         for i in bucketBegin...bucketEnd {
-            friendsArray[i] = bucket[i - bucketBegin]
+            friendsArray[i].photo = bucket[i - bucketBegin]
         }
     }
     
@@ -31,24 +35,28 @@ public class FriendsPageViewController: UITableViewController {
     }
     
     override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendCount
+        return searchBarIsEmpty ? friendsArray.count : searchedFriends.count
     }
     
-    override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
-        UITableViewCell {
-        if friendsArray[indexPath.row] == nil {
-            uploadBucket(from: indexPath.row - halfBucketSize,
-                         to: indexPath.row + halfBucketSize)
-        }
+    override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = friendsArray[indexPath.row]?.name
-        cell.imageView?.image = friendsArray[indexPath.row]?.photo
+        let currentFriendArray = (searchBarIsEmpty ? friendsArray : searchedFriends)
+        cell.textLabel?.text = currentFriendArray[indexPath.row].name
+        if currentFriendArray[indexPath.row].photo == nil {
+            uploadBucket(from: indexPath.row - halfBucketSize, to: indexPath.row + halfBucketSize)
+            if let photo = currentFriendArray[indexPath.row].photo {
+                cell.imageView?.image = photo
+            }
+        }
         return cell
     }
     
     override public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //UserDefaults.standard.setValue(friendsArray, forKey: "\(lastUserId)/friendsArray")
+        //UserDefaults.standard.synchronize()
         let friendPageController = self.storyboard?.instantiateViewController(withIdentifier: "FriendPage") as! FriendPageViewController
-        friendPageController.friendId = (friendsArray[indexPath.row]?.id)!
+        let currentFriendArray = (searchBarIsEmpty ? friendsArray : searchedFriends)
+        friendPageController.friendId = currentFriendArray[indexPath.row].id
         navigationItem.backBarButtonItem?.title = "all friends"
         navigationController?.isNavigationBarHidden = false
         navigationController?.pushViewController(friendPageController, animated: true)
@@ -56,14 +64,45 @@ public class FriendsPageViewController: UITableViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        friendCount = Vkontakte.getFriendCount(for: lastUserId)
-        friendsArray = [(id: String, name: String, photo: UIImage)?](repeating: nil, count: friendCount)
+        searchBar.delegate = self
+        let friendNonImageParams = Vkontakte.getFriendNamesAndIds(for: lastUserId);
+        for friendNonImageParam in friendNonImageParams {
+            friendsArray.append((id: friendNonImageParam.id, name: friendNonImageParam.name, photo: nil))
+        }
         uploadBucket(from: 0, to: bucketSize)
+        tableView.estimatedRowHeight = 80.0
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+}
+
+public extension FriendsPageViewController {
+    
+    public func filterContent(by searchText: String) {
+        if friendsArray.isEmpty {
+            searchedFriends = []
+            return
+        }
+        searchedFriends = friendsArray.filter({(friend: (id: String, name: String, photo: UIImage?)) -> Bool in
+            return friend.name.lowercased().range(of: searchText.lowercased()) != nil
+        })
+    }
+    
+    
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText != "" {
+            searchBarIsEmpty = false
+            filterContent(by: searchText)
+        } else {
+            searchBarIsEmpty = true
+            searchedFriends = []
+        }
+        self.tableView.reloadData()
     }
     
 }

@@ -22,6 +22,24 @@ class Vkontakte {
         VK.logIn()
     }
     
+    class func getMainUserId() -> String {
+        var Id: String?
+        var gotAnswer = false
+        VK.API.Users.get([:]).send(
+            onSuccess: {(response: JSON) -> () in
+                for obj in response.array! {
+                    Id = obj.dictionaryValue["id"]?.stringValue
+                    break
+                }
+                gotAnswer = true},
+            onError: {(error: Error) -> () in
+                print("VK-ERROR: user.get fail")
+                gotAnswer = true})
+        while (!gotAnswer) {
+            continue
+        }
+        return Id!
+    }
     
     class func getName(byId userId: String) -> String? {
         var username: String?
@@ -136,6 +154,60 @@ class Vkontakte {
         return friends
     }
     
+    class func getFriendNamesAndIds(for userId: String = "main") -> [(id: String, name: String)] {
+            var friends = [(id: String, name: String)]()
+            var gotAnswer = false
+            var parameters = [VK.Arg.fields: "domain"]
+            if userId != "main" {
+                parameters[VK.Arg.userId] = userId
+            }
+            VK.API.Friends.get(parameters).send(
+                onSuccess: {(responce) in
+                    let items: [JSON] = responce.dictionary!["items"]!.array!
+                    for item in items {
+                        let friendParams = item.dictionaryValue
+                        let friendId = friendParams["id"]?.stringValue
+                        let friendName = "\(friendParams["first_name"] ?? "") \(friendParams["last_name"] ?? "")"
+                        friends.append((id: friendId!, name: friendName))
+                    }
+                    gotAnswer = true},
+                onError: {(error: Error) -> () in print("__________Friends.get.error__________")
+                    gotAnswer = true},
+                onProgress: {(x: Int64, y: Int64) -> () in
+                    print("progress (x : \(x), y: \(y))")})
+            while (!gotAnswer) {
+                continue
+            }
+            return friends
+    }
+    
+    class func getFriendPhotos(from firstFriendPos: Int, to lastFriendPos: Int, for userId: String = "main") -> [UIImage] {
+            var friendPhotos = [UIImage]()
+            var gotAnswer = false
+            var parameters = [VK.Arg.fields: "photo_50", VK.Arg.offset: "\(firstFriendPos)",
+                VK.Arg.count: "\(lastFriendPos - firstFriendPos + 1)"]
+            if userId != "main" {
+                parameters[VK.Arg.userId] = userId
+            }
+            VK.API.Friends.get(parameters).send(
+                onSuccess: {(responce) in
+                    let items: [JSON] = responce.dictionary!["items"]!.array!
+                    for item in items {
+                        let friendParams = item.dictionaryValue
+                        let friendPhoto = getPhoto(byUrl: (friendParams["photo_50"]?.stringValue)!)
+                        friendPhotos.append(friendPhoto)
+                    }
+                    gotAnswer = true},
+                onError: {(error: Error) -> () in print("__________Friends.get.error__________")
+                    gotAnswer = true},
+                onProgress: {(x: Int64, y: Int64) -> () in
+                    print("progress (x : \(x), y: \(y))")})
+            while (!gotAnswer) {
+                continue
+            }
+            return friendPhotos
+    }
+    
     private class func getUserPhoto(for userId: String = "main") -> UIImage {
         var photo: UIImage?
         var gotAnswer = false
@@ -215,7 +287,33 @@ class Vkontakte {
     class func setOffline() {
         VK.API.Account.setOffline()
     }
-    
+
+    class func getMessages(with friendId: String,
+                           offset ofset: Int,
+                           count cnt: Int) -> [(message: String, isOwnerMessage: Bool)] {
+        var messages = [(message: String, isOwnerMessage: Bool)]()
+        var gotAnswer = false
+        let parameters = [VK.Arg.userId: friendId, VK.Arg.offset: "\(ofset)", VK.Arg.count: "\(cnt)"]
+        VK.API.Messages.getHistory(parameters).send(
+            onSuccess: { (responce: JSON) in
+                let messageDicts = responce.dictionary?["items"]?.arrayValue
+                for messageDict in messageDicts! {
+                    messages.append((message: messageDict["body"].stringValue,
+                                     isOwnerMessage: messageDict["user_id"].stringValue != messageDict["from_id"].stringValue))
+                }
+                gotAnswer = true
+        },
+            onError: { (err: Error) in
+                print("message error \(err)")
+                gotAnswer = true
+        }) { (x: Int64, y: Int64) in
+            print("progress (\(x), \(y))")
+        }
+        while !gotAnswer {
+            continue
+        }
+        return messages
+    }
     
     
 }

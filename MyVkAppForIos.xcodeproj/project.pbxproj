@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD1AFA9A1E5DC1590025907B /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1AFA991E5DC1590025907B /* MessagesViewController.swift */; };
+		DD1AFA9C1E5DC2C50025907B /* MessagingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1AFA9B1E5DC2C50025907B /* MessagingTableViewCell.swift */; };
 		DD2367451E5B16B800E167C2 /* FriendPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2367441E5B16B800E167C2 /* FriendPageViewController.swift */; };
 		DD26B84A1E4FCB6A000893BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26B8491E4FCB6A000893BE /* AppDelegate.swift */; };
 		DD26B84C1E4FCB6A000893BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26B84B1E4FCB6A000893BE /* ViewController.swift */; };
@@ -17,6 +19,7 @@
 		DD26B8601E4FCFE0000893BE /* VkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD26B85F1E4FCFE0000893BE /* VkDelegate.swift */; };
 		DD4321A61E54F747008BDF89 /* FriendsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4321A51E54F747008BDF89 /* FriendsPageViewController.swift */; };
 		DD786CDA1E58982D0078E986 /* Vkontakte.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD786CD91E58982D0078E986 /* Vkontakte.swift */; };
+		DD8D0B5D1E642E71006A4944 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8D0B5C1E642E71006A4944 /* MessageTableViewCell.swift */; };
 		DDE78E2D6F39C58094975217 /* Pods_AppUsingSwiftyVk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68D69CCCCE9748091E5EE94 /* Pods_AppUsingSwiftyVk.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +27,8 @@
 		4FEA765A1AD0EC7A9A8B289E /* Pods-AppUsingSwiftyVk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppUsingSwiftyVk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppUsingSwiftyVk/Pods-AppUsingSwiftyVk.debug.xcconfig"; sourceTree = "<group>"; };
 		A2BB7B9C9CE6E2CA849D5450 /* Pods-AppUsingSwiftyVk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppUsingSwiftyVk.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppUsingSwiftyVk/Pods-AppUsingSwiftyVk.release.xcconfig"; sourceTree = "<group>"; };
 		A68D69CCCCE9748091E5EE94 /* Pods_AppUsingSwiftyVk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppUsingSwiftyVk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD1AFA991E5DC1590025907B /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		DD1AFA9B1E5DC2C50025907B /* MessagingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagingTableViewCell.swift; sourceTree = "<group>"; };
 		DD2367441E5B16B800E167C2 /* FriendPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendPageViewController.swift; sourceTree = "<group>"; };
 		DD26B8461E4FCB6A000893BE /* MyVkAppForIos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVkAppForIos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD26B8491E4FCB6A000893BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +41,7 @@
 		DD26B85F1E4FCFE0000893BE /* VkDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VkDelegate.swift; sourceTree = "<group>"; };
 		DD4321A51E54F747008BDF89 /* FriendsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsPageViewController.swift; sourceTree = "<group>"; };
 		DD786CD91E58982D0078E986 /* Vkontakte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vkontakte.swift; sourceTree = "<group>"; };
+		DD8D0B5C1E642E71006A4944 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,9 @@
 				DD4321A51E54F747008BDF89 /* FriendsPageViewController.swift */,
 				DD786CD91E58982D0078E986 /* Vkontakte.swift */,
 				DD2367441E5B16B800E167C2 /* FriendPageViewController.swift */,
+				DD1AFA991E5DC1590025907B /* MessagesViewController.swift */,
+				DD1AFA9B1E5DC2C50025907B /* MessagingTableViewCell.swift */,
+				DD8D0B5C1E642E71006A4944 /* MessageTableViewCell.swift */,
 			);
 			path = AppUsingSwiftyVk;
 			sourceTree = "<group>";
@@ -230,9 +239,12 @@
 				DD2367451E5B16B800E167C2 /* FriendPageViewController.swift in Sources */,
 				DD26B84C1E4FCB6A000893BE /* ViewController.swift in Sources */,
 				DD26B8521E4FCB6A000893BE /* AppUsingSwiftyVk.xcdatamodeld in Sources */,
+				DD8D0B5D1E642E71006A4944 /* MessageTableViewCell.swift in Sources */,
 				DD4321A61E54F747008BDF89 /* FriendsPageViewController.swift in Sources */,
 				DD26B84A1E4FCB6A000893BE /* AppDelegate.swift in Sources */,
 				DD26B8601E4FCFE0000893BE /* VkDelegate.swift in Sources */,
+				DD1AFA9C1E5DC2C50025907B /* MessagingTableViewCell.swift in Sources */,
+				DD1AFA9A1E5DC1590025907B /* MessagesViewController.swift in Sources */,
 				DD786CDA1E58982D0078E986 /* Vkontakte.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

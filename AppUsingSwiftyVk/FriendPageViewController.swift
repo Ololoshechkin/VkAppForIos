@@ -30,6 +30,15 @@ class FriendPageViewController: UIViewController {
     }
     
     
+    @IBAction func chatButtonPress(_ sender: Any) {
+        let chatViewController = self.storyboard?.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
+        chatViewController.friendId = friendId
+        navigationItem.backBarButtonItem?.title = "to \(usernameLabel.text)"
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.pushViewController(chatViewController, animated: true)
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
